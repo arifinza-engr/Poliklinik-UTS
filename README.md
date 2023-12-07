@@ -21,4 +21,15 @@ Aplikasi ini dibangun menggunakan teknologi-teknologi berikut:
 ## Cara Penggunaan
 
 1. Clone repositori ini ke komputer Anda:
+2. Masuk ke direktori aplikasi:
+3. Install dependensi:
+4. Jalankan aplikasi:
+5. Buka aplikasi di peramban web Anda dengan alamat [http://localhost:3000](http://localhost:3000).
 
+## Kontribusi
+
+Kami sangat menghargai kontribusi dari komunitas. Jika Anda ingin berkontribusi pada proyek ini, silakan buka *issue* untuk diskusi lebih lanjut.
+
+## Kontak
+
+Jika Anda memiliki pertanyaan atau saran, silakan hubungi kami di hppaet@gmail.com
