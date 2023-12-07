@@ -11,10 +11,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
   $id_pasien = $_POST['id_pasien'];
   $tanggal_periksa = date('Y-m-d', strtotime($_POST['tanggal_periksa']));
   $waktu = $_POST['waktu'];
-  $obat = $_POST['obat'];
+  $id_obat = $_POST['id_obat']; // Ubah ini dari 'obat' menjadi 'id_obat'
   $catatan = $_POST['catatan'];
 
-  $query = "UPDATE periksa SET id_dokter='$id_dokter', id_pasien='$id_pasien', tanggal_periksa='$tanggal_periksa', waktu='$waktu', obat='$obat', catatan='$catatan' WHERE id='$id'";
+  $query = "UPDATE periksa SET id_dokter='$id_dokter', id_pasien='$id_pasien', tanggal_periksa='$tanggal_periksa', waktu='$waktu', id_obat='$id_obat', catatan='$catatan' WHERE id='$id'";
 
   if ($mysqli->query($query)) {
     header("Location: index.php?page=periksa/periksa");
@@ -37,7 +37,7 @@ if (isset($_GET['id'])) {
     $id_pasien = $data['id_pasien'];
     $tanggal_periksa = date('Y-m-d', strtotime($data['tanggal_periksa']));
     $waktu = $data['waktu'];
-    $obat = $data['obat'];
+    $id_obat = $data['id_obat'];
     $catatan = $data['catatan'];
   } else {
     die("Data pemeriksaan tidak ditemukan.");
@@ -47,6 +47,7 @@ if (isset($_GET['id'])) {
 // Ambil data dokter dan pasien untuk dropdown
 $dokters = mysqli_query($mysqli, "SELECT * FROM dokter");
 $pasiens = mysqli_query($mysqli, "SELECT * FROM pasien");
+$obat = mysqli_query($mysqli, "SELECT * FROM obat");
 ?>
 
 <div class="container mt-4">
@@ -91,8 +92,14 @@ $pasiens = mysqli_query($mysqli, "SELECT * FROM pasien");
 
 
     <div class="mb-3">
-      <label for="obat" class="form-label">Obat</label>
-      <input type="text" class="form-control" id="obat" name="obat" value="<?= $obat; ?>">
+      <label for="id_obat" class="form-label">Obat</label>
+      <select class="form-control" id="id_obat" name="id_obat">
+        <?php
+        while ($obat_item = mysqli_fetch_assoc($obat)) { // Ganti $obat menjadi $obat_item
+          echo "<option value='" . $obat_item['id'] . "'>" . $obat_item['nama'] . "</option>";
+        }
+        ?>
+      </select>
     </div>
 
     <div class="mb-3">

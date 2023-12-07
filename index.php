@@ -20,6 +20,7 @@ if (!isset($_SESSION['user_id'])) {
 
   <!-- My CSS -->
   <link rel="stylesheet" href="assets/css/footer.css">
+  <link rel="stylesheet" href="assets/css/index.css">
   <!-- Bootstrap 5.3.2 CSS -->
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
@@ -64,6 +65,9 @@ if (!isset($_SESSION['user_id'])) {
             <a class="nav-link fw-semibold" href="index.php?page=pasien/pasien">Pasien</a>
           </li>
           <li class="nav-item">
+            <a class="nav-link fw-semibold" href="index.php?page=obat/obat">Obat</a>
+          </li>
+          <li class="nav-item">
             <a class="nav-link fw-semibold" href="index.php?page=periksa/periksa">Periksa</a>
           </li>
           <a type="button" class="btn btn-outline-danger fw-semibold ms-3" href="logout.php">Logout</a>
@@ -99,7 +103,7 @@ if (!isset($_SESSION['user_id'])) {
       echo "<div id='carouselExampleSlidesOnly' class='carousel slide mt-5' data-bs-ride='carousel'>
             <div class='carousel-inner'>
               <div class='carousel-item active'>
-                <img src='assets/403.jpg' class='d-block w-100' alt='...'>
+                <img src='assets/tes.png' class='d-block w-100' alt='...'>
               </div>
             </div>
           </div>";

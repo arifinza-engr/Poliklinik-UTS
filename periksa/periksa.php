@@ -4,6 +4,7 @@ include("C:/xampp/htdocs/poliklinik/inc/koneksi.php");
 // Mengambil data dokter dan pasien untuk dropdown
 $dokters = mysqli_query($mysqli, "SELECT * FROM dokter");
 $pasiens = mysqli_query($mysqli, "SELECT * FROM pasien");
+$obat = mysqli_query($mysqli, "SELECT * FROM obat");
 
 if (!$dokters || !$pasiens) {
   die("Error fetching data: " . $mysqli->error);
@@ -52,9 +53,17 @@ if (!$dokters || !$pasiens) {
           </div>
 
           <div class="mb-3">
-            <label for="obat" class="form-label">Obat</label>
-            <textarea class="form-control" id="obat" name="obat" rows="1"></textarea>
+            <label for="id_obat" class="form-label">Obat</label>
+            <select class="form-control" id="id_obat" name="id_obat">
+              <?php
+              while ($obat_item = mysqli_fetch_assoc($obat)) { // Ganti $obat menjadi $obat_item
+                echo "<option value='" . $obat_item['id'] . "'>" . $obat_item['nama'] . "</option>";
+              }
+              ?>
+            </select>
           </div>
+
+
 
           <div class="mb-3">
             <label for="catatan" class="form-label">Catatan</label>
@@ -85,10 +94,11 @@ if (!$dokters || !$pasiens) {
     </thead>
     <tbody>
       <?php
-      $query = "SELECT pr.id, p.nama AS nama_pasien, d.nama AS nama_dokter, pr.tanggal_periksa, pr.waktu, pr.obat, pr.catatan
+      $query = "SELECT pr.id, p.nama AS nama_pasien, d.nama AS nama_dokter, pr.tanggal_periksa, pr.waktu, o.nama AS nama_obat, pr.catatan
                           FROM periksa pr 
                           JOIN pasien p ON pr.id_pasien = p.id 
                           JOIN dokter d ON pr.id_dokter = d.id 
+                          JOIN obat o ON pr.id_obat = o.id 
                           ORDER BY pr.tanggal_periksa ASC";
 
       $result = mysqli_query($mysqli, $query);
@@ -105,11 +115,12 @@ if (!$dokters || !$pasiens) {
         $tanggal_periksa = date('d M Y', strtotime($data['tanggal_periksa']));
         echo "<td>" . $tanggal_periksa . "</td>";
         echo "<td>" . $data['waktu'] . "</td>";
-        echo "<td>" . $data['obat'] . "</td>";
+        echo "<td>" . $data['nama_obat'] . "</td>";
         echo "<td>" . $data['catatan'] . "</td>";
         echo "<td>";
-        echo "<a href='index.php?page=periksa/periksa_edit&id=" . $data['id'] . "' class='btn btn-warning btn-sm'>Edit</a> ";
-        echo "<a href='index.php?page=periksa/aksi_periksa&action=delete&id=" . $data['id'] . "' class='btn btn-danger btn-sm'>Hapus</a>";
+        echo "<a href='index.php?page=periksa/periksa_edit&id=" . $data['id'] . "' class='btn btn-warning btn-sm' style='margin-left: 2px;'>Edit</a> ";
+        echo "<a href='index.php?page=periksa/aksi_periksa&action=delete&id=" . $data['id'] . "' class='btn btn-danger btn-sm' style='margin-left: 2px;'>Hapus</a>";
+        echo "<a href='index.php?page=periksa/detail_periksa&id=" . $data['id'] . "' class='btn btn-info btn-sm' style='margin-left: 6px;'>Detail</a>";
         echo "</td>";
         echo "</tr>";
       }
